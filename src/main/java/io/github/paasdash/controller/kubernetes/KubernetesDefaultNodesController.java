@@ -1,4 +1,4 @@
-package io.github.paasdash.controller.kubernets;
+package io.github.paasdash.controller.kubernetes;
 
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;

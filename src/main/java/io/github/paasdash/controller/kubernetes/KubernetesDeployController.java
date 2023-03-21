@@ -1,4 +1,4 @@
-package io.github.paasdash.controller.kubernets;
+package io.github.paasdash.controller.kubernetes;
 
 import io.github.paasdash.service.kubernetes.KubernetesDeployService;
 import io.kubernetes.client.custom.V1Patch;
