@@ -97,7 +97,7 @@
                             <classpathPrefix>lib/</classpathPrefix>
                             <useUniqueVersions>false</useUniqueVersions>
                             <mainClass>
-                                com.github.shoothzj.kdash.Main
+                                io.github.paasdash.Main
                             </mainClass>
                         </manifest>
                     </archive>
