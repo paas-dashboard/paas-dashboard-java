@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -64,6 +66,34 @@ public class KubernetesStatefulSetController {
                                                 @RequestBody V1Patch v1Patch) throws ApiException {
         kubernetesStatefulSetService.patch(namespace, statefulSetName, v1Patch);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @PostMapping("/namespaces/{namespace}/stateful-sets/{statefulSetName}/ready-check")
+    public ResponseEntity<Boolean> readyCheck(@PathVariable String namespace,
+                                              @PathVariable String statefulSetName,
+                                              @RequestParam(required = false) String image)
+            throws ApiException {
+        V1StatefulSet v1StatefulSet;
+        List<V1StatefulSet> statefulSets = kubernetesStatefulSetService.getNamespaceStatefulSets(namespace)
+                .stream()
+                .filter(statefulSet -> Objects.equals(
+                        Objects.requireNonNull(statefulSet.getMetadata()).getName(), statefulSetName))
+                .toList();
+        if (statefulSets.size() > 0) {
+            v1StatefulSet = statefulSets.get(0);
+            if (image != null && !image.equals(Objects.requireNonNull(Objects.requireNonNull(v1StatefulSet.getSpec())
+                    .getTemplate().getSpec()).getContainers().get(0).getImage())) {
+                return new ResponseEntity<>(false, HttpStatus.NOT_ACCEPTABLE);
+            }
+            if (v1StatefulSet.getStatus() != null && !Objects.equals(v1StatefulSet.getStatus().getAvailableReplicas(),
+                    v1StatefulSet.getStatus().getReplicas())) {
+                return new ResponseEntity<>(false, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(true, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
