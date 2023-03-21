@@ -4,9 +4,7 @@ import io.github.paasdash.module.kafka.KafkaInstance;
 import io.github.paasdash.util.EnvUtil;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
