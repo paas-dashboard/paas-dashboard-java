@@ -25,11 +25,11 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequestMapping("/api/kubernetes/instances/default")
-public class KubernetesDeployController {
+public class KubernetesDefauleDeployController {
 
     public KubernetesDeployService deployService;
 
-    public KubernetesDeployController(@Autowired KubernetesDeployService deployService) {
+    public KubernetesDefauleDeployController(@Autowired KubernetesDeployService deployService) {
         this.deployService = deployService;
     }
 

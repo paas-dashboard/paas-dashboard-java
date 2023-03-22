@@ -25,11 +25,12 @@ import java.util.Objects;
 @Slf4j
 @RestController
 @RequestMapping("/api/kubernetes/instances/default")
-public class KubernetesStatefulSetController {
+public class KubernetesDefaultStatefulSetController {
 
     public KubernetesStatefulSetService kubernetesStatefulSetService;
 
-    public KubernetesStatefulSetController(@Autowired KubernetesStatefulSetService kubernetesStatefulSetService) {
+    public KubernetesDefaultStatefulSetController(
+            @Autowired KubernetesStatefulSetService kubernetesStatefulSetService) {
         this.kubernetesStatefulSetService = kubernetesStatefulSetService;
     }
 

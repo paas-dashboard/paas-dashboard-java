@@ -20,11 +20,11 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/kubernetes/instances/default")
-public class KubernetesNodeController {
+public class KubernetesDefaultNodeController {
 
     private final KubernetesNodeService kubernetesNodeService;
 
-    public KubernetesNodeController(@Autowired KubernetesNodeService kubernetesNodeService) {
+    public KubernetesDefaultNodeController(@Autowired KubernetesNodeService kubernetesNodeService) {
         this.kubernetesNodeService = kubernetesNodeService;
     }
 

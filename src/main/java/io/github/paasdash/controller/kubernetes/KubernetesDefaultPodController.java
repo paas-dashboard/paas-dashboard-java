@@ -21,11 +21,11 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/kubernetes/instances/default")
-public class KubernetesPodController {
+public class KubernetesDefaultPodController {
 
     private final KubernetesPodService kubernetesPodService;
 
-    public KubernetesPodController(@Autowired KubernetesPodService kubernetesPodService) {
+    public KubernetesDefaultPodController(@Autowired KubernetesPodService kubernetesPodService) {
         this.kubernetesPodService = kubernetesPodService;
     }
 
