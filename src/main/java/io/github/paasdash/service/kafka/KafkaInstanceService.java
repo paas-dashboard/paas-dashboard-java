@@ -11,13 +11,14 @@ import java.util.Map;
 @Service
 public class KafkaInstanceService {
 
-    /**
-     * Get all kafka instances
-     * eg: KAFKA_DEFAULT_BOOTSTRAP_SERVERS=localhost:9092
-     * @return
-     */
-    public Map<String, KafkaInstance> getKafkaInstances() {
-        HashMap<String, KafkaInstance> result = new HashMap<>();
+    private final Map<String, KafkaInstance> kafkaInstanceMap;
+
+    {
+        /*
+          Get all kafka instances
+          eg: KAFKA_DEFAULT_BOOTSTRAP_SERVERS=localhost:9092
+         */
+        kafkaInstanceMap = new HashMap<>();
         Map<String, String> envMap = EnvUtil.getByPrefix("KAFKA_");
         for (Map.Entry<String, String> entry : envMap.entrySet()) {
             String key = entry.getKey();
@@ -25,21 +26,20 @@ public class KafkaInstanceService {
             int index = key.indexOf("_");
             String name = key.substring(0, index).toLowerCase(Locale.ENGLISH);
             String property = key.substring(index + 1);
-            KafkaInstance kafkaInstance = result.get(name);
+            KafkaInstance kafkaInstance = kafkaInstanceMap.get(name);
             if (kafkaInstance == null) {
-                kafkaInstance = new KafkaInstance();
-                kafkaInstance.setName(name);
-                result.put(name, kafkaInstance);
+                kafkaInstanceMap.put(name, new KafkaInstance(name));
             }
-            kafkaInstance = result.get(name);
+            kafkaInstance = kafkaInstanceMap.get(name);
             switch (property) {
-                case "BOOTSTRAP_SERVERS":
-                    kafkaInstance.setBootstrapServers(value);
-                    break;
-                default:
-                    break;
+                case "BOOTSTRAP_SERVERS" -> kafkaInstance.setBootstrapServers(value);
+                default -> {
+                }
             }
         }
-        return result;
+    }
+
+    public Map<String, KafkaInstance> getKafkaInstanceMap() {
+        return kafkaInstanceMap;
     }
 }

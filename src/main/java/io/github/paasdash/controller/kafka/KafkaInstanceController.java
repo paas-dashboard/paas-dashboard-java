@@ -21,6 +21,6 @@ public class KafkaInstanceController {
 
     @GetMapping("/instances")
     public List<KafkaInstance> getKafkaInstances() {
-        return kafkaInstanceService.getKafkaInstances().values().stream().toList();
+        return kafkaInstanceService.getKafkaInstanceMap().values().stream().toList();
     }
 }
