@@ -37,7 +37,7 @@ public class KubernetesDeployService {
     }
 
     public void patchDeployment(String namespace, String deployName, V1Patch v1Patch) throws ApiException {
-        appsV1Api.patchNamespacedDeployment(deployName, namespace, v1Patch, "true", null, null, null, false);
+        appsV1Api.patchNamespacedDeployment(deployName, namespace, v1Patch, "true", null, null, null, null);
     }
 
     public void scaleDeploy(String namespace, String deploymentName, V1Scale v1Scale) throws ApiException {

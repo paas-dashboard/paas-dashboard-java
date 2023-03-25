@@ -61,7 +61,7 @@ public class KubernetesDefaultStatefulSetController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/namespaces/{namespace}/stateful-sets/{statefulSetName}/patch")
+    @PostMapping("/namespaces/{namespace}/stateful-sets/{statefulSetName}")
     public ResponseEntity<Void> patchDeployment(@PathVariable String namespace,
                                                 @PathVariable String statefulSetName,
                                                 @RequestBody V1Patch v1Patch) throws ApiException {

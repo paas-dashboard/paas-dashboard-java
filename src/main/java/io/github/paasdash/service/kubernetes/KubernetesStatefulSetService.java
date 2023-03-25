@@ -38,7 +38,7 @@ public class KubernetesStatefulSetService {
     }
 
     public void patch(String namespace, String statefulSetName, V1Patch v1Patch) throws ApiException {
-        appsV1Api.patchNamespacedStatefulSet(statefulSetName, namespace, v1Patch, "true", null, null, null, false);
+        appsV1Api.patchNamespacedStatefulSet(statefulSetName, namespace, v1Patch, "true", null, null, null, null);
     }
 
     public void scaleStatefulSet(String namespace, String statefulSetName, V1Scale v1Scale) throws ApiException {
