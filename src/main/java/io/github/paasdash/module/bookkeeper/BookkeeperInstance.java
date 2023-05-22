@@ -1,4 +1,4 @@
-package io.github.paasdash.module.pulsar;
+package io.github.paasdash.module.bookkeeper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,18 +9,13 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PulsarInstance {
+public class BookkeeperInstance {
+
     private String name;
-
-    private String host;
-
-    private int webPort;
-
-    private int tcpPort;
 
     private String zkInstanceName;
 
-    public PulsarInstance(String name) {
+    public BookkeeperInstance(String name) {
         this.name = name;
     }
 }
