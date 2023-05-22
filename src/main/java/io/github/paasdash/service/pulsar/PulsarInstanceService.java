@@ -37,6 +37,7 @@ public class PulsarInstanceService {
                 case "HOST" -> pulsarInstance.setHost(value);
                 case "WEB_PORT" -> pulsarInstance.setWebPort(Integer.parseInt(value));
                 case "TCP_PORT" -> pulsarInstance.setTcpPort(Integer.parseInt(value));
+                case "ZK_INSTANCE" -> pulsarInstance.setZkInstanceName(value);
                 default -> {
                 }
             }
