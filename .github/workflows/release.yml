@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  release:
+    name: Release binary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: paasdashboard/paas-dashboard:java
+          platforms: linux/amd64,linux/arm64
+      - name: Save Docker Images
+        run: docker pull paasdashboard/paas-dashboard:java;docker save paasdashboard/paas-dashboard:java -o paas-dashboard-java.tar.gz
+      - name: Release
+        uses: shoothzj/latest-release-action@v1
+        with:
+          files: paas-dashboard-java.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
